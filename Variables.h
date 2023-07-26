@@ -8,11 +8,18 @@ uint8_t exSD_Status = 0;
 bool Rate_Fast = OFF;
  
 //const size_t ADC_COUNT = 6;
+
+
 struct data_t {
  // uint16_t adc[ADC_COUNT];
  float Sensor_Arr[8];
  uint16_t  Adc_Arr[2];
 };
+
+static uint32_t LogNumber = 0;  
+uint32_t Sample_Err_Arr[100];
+uint32_t Sample_Err_No = 0;
+uint32_t Sample_No = 0;
 
 const uint64_t PREALLOCATE_SIZE = (uint64_t)PREALLOCATE_SIZE_MiB << 20;
 const size_t FIFO_DIM = 512 * FIFO_SIZE_SECTORS / sizeof(data_t);

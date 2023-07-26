@@ -35,7 +35,8 @@ void logRecord(data_t* data, uint16_t overrun) {
 
 }
 void printRecord(Print* pr, data_t* data) {
-  static uint32_t nr = 0;
+  //static uint32_t nr = 0;
+  static uint32_t i = 0;
   if (!data) { // header
     pr->print(F("Sample T.,"));
    // pr->print(Log_Interval);
@@ -49,13 +50,17 @@ void printRecord(Print* pr, data_t* data) {
     pr->print(F("Start Log,"));    
     pr->print(Str_DateLog_Init);
     pr->print(F(", "));
-    pr->println(Str_TimeLog_Init);  
+    pr->print(Str_TimeLog_Init);  
+    pr->print(F(",Missed,Samples:,"));   
+    pr->println(Sample_Err_No+1);
+
+    
     pr->print(F("End  Log,"));    
     pr->print(Str_Date);
     pr->print(F(", "));
     pr->print(Str_Time);  
     pr->print(F(",Log End:, "));
-    if(Rate_Fast == ON) pr->println(F("Low Sampl. Rate"));
+    if(Rate_Fast == ON) pr->println(F("Max Sample,Limit Reach"));
     else pr->println(F("On Purpose")); 
 
       
@@ -68,8 +73,9 @@ void printRecord(Print* pr, data_t* data) {
     */
     pr->print(F(",Acc x, Acc y, Acc z, Gyr x, Gyr y, Gyr z"));
     pr->print(F(",Bat Cur.,Bat Volt"));
+    pr->print(F(",ErrLines"));
     pr->println();
-    nr = 0;
+    LogNumber = 0;
     return;
   }
   /*
@@ -89,7 +95,7 @@ void printRecord(Print* pr, data_t* data) {
     }
     pr->println();
     */
-    pr->print(nr++);
+    pr->print(LogNumber++);
 
     pr->write(',');pr->print(data->Sensor_Arr[0]);
     pr->write(',');pr->print(data->Sensor_Arr[1]);
@@ -100,6 +106,12 @@ void printRecord(Print* pr, data_t* data) {
     pr->write(',');pr->print(data->Adc_Arr[0]);
     pr->write(',');pr->print(data->Adc_Arr[1]);
 
+    
+    if((Sample_Err_No < 100) &&( Sample_Err_No >= i)){
+      pr->write(',');pr->print(Sample_Err_Arr[i]); 
+      i++; 
+    }
+    
 //    pr->write(',');pr->print(analogRead(BAT_CURRENT));
  //   pr->write(',');pr->print(analogRead(BAT_VOLT));
     pr->println();

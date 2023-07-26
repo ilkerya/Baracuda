@@ -3,7 +3,7 @@ http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf
 
 git add .
 git commit -m "Comment"
-git push https://github.com/ilkerya/Pangolin.git master
+git push https://github.com/ilkerya/Baracuda.git master
 
 First Time
 git init
@@ -16,16 +16,13 @@ https://help.github.com/articles/adding-a-file-to-a-repository-using-the-command
 git add .
 git commit -m "Add existing file"
 // For Common git
-git push https://github.com/ilkerya/Pangolin master
-// For Electrolux git
-git push  http://git.int.electrolux.com/ilkerya/Phoenix_Pangolin.git master
-https://help.github.com/articles/fetching-a-remote/
-http://git.int.electrolux.com/ilkerya/Phoenix_Mobile.git
+git push https://github.com/ilkerya/Baracuda master
+
 
 In case in the first push gives error use below command
 git remote add origin remote repository URL
 git push origin master
-git push --force https://github.com/ilkerya/Phoenix master --force
+git push --force https://github.com/ilkerya/Baracuda master --force
 
 DataLogger Arduino Atmega/Arduino Due // Arduino IDE / Microchip Studio 7.0
 CPU Modules : Both Can Used as Selectable Due Needs to be debugged for I2C issue!!
@@ -49,20 +46,20 @@ https://reference.digilentinc.com/reference/instrumentation/analog-discovery-2/s
 // Location of Main Librarires
 
 // Set Origin
-//   git remote add origin git@github.com:ilkerya/Pangolin.git
-//  https://github.com/ilkerya/Pangolin
+//   git remote add origin git@github.com:ilkerya/Baracuda.git
+//  https://github.com/ilkerya/Baracuda
 //  https://blog.plover.com/prog/git-ff-error.html
 // C:\Users\Yagciilk\Documents\Arduino\libraries
 // C:\Program Files (x86)\Arduino\libraries   
-// C:\Projects\Pangolin\Pangolin\ArduinoCore\include  default AtmelStudio Project lib locations
+// C:\Projects\Pangolin\Baracuda\ArduinoCore\include  default AtmelStudio Project lib locations
 
-#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Proximab\Defs.h"
-#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Proximab\Variables.h"
-#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Proximab\RTC.h"
-#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Proximab\SDCard.h"
-#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Proximab\UserInt.h"
-#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Proximab\Display.h"
-#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Proximab\Sensors.h"
-#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Proximab\ADE9153.h"
-#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Proximab\Menu.h"
-#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Proximab\Functions.h"
+#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Baracuda\Defs.h"
+#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Baracuda\Variables.h"
+#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Baracuda\RTC.h"
+#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Baracuda\SDCard.h"
+#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Baracuda\UserInt.h"
+#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Baracuda\Display.h"
+#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Baracuda\Sensors.h"
+#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Baracuda\ADE9153.h"
+#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Baracuda\Menu.h"
+#include  "C:\Users\ilker\OneDrive\Belgeler\Arduino\Baracuda\Functions.h"

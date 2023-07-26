@@ -280,6 +280,8 @@ bool logData(void) {
 
     Str_DateLog_Init = Str_Date;
     Str_TimeLog_Init = Str_Time;
+    Sample_No = 0;
+    Sample_Err_No = 0;
 
   // Start time for log file.
   uint32_t m = millis();
@@ -292,10 +294,11 @@ bool logData(void) {
     logTime += SampleTime;
     // Wait until time to log data.
     delta = micros() - logTime;
+    Rate_Fast = OFF;
     if (delta > 0) {
-      Serial.print(F("delta: "));
-      Serial.println(delta);
-      Serial.println("Rate too fast");
+    //  Serial.print(F("delta: "));
+    //  Serial.println(delta);
+    //  Serial.println("Rate too fast");
      // error("Rate too fast");
       //return OFF;
       Rate_Fast = ON;
@@ -303,6 +306,8 @@ bool logData(void) {
     while (delta < 0) {  // wait until logtime is achieved for sampling 
       delta = micros() - logTime;
     }
+
+    Sample_No++;
 
     if (fifoCount < FIFO_DIM) {
       uint32_t m = micros();
@@ -327,9 +332,7 @@ bool logData(void) {
           Serial.println("too many overruns");
          return OFF;
       }
-      if (ERROR_LED_PIN >= 0) {
-        digitalWrite(ERROR_LED_PIN, HIGH);
-      }
+     // if (ERROR_LED_PIN >= 0) {digitalWrite(ERROR_LED_PIN, HIGH);}
     }
     // Save max jitter.
     if (delta > maxDelta) {
@@ -362,10 +365,18 @@ bool logData(void) {
         break;
       }
       */
-      if(Rate_Fast == ON)break;
       if(Log_Escape())break;
+      
+     // if(Rate_Fast == ON)break;
+      if(Rate_Fast == ON){
+        Sample_Err_Arr[Sample_Err_No] = Sample_No;
+        Sample_Err_No++;
+        if(!(Sample_Err_No < 100)){
+          break;
+        }
+      }
     }
-  }
+  } //while(1)
   Serial.print(F("\nLog time: "));
   Serial.print(0.001 * (millis() - m));
   Serial.println(F(" Seconds"));
@@ -391,6 +402,17 @@ bool logData(void) {
   Serial.print(F(" micros\nmaxDelta: "));
   Serial.print(maxDelta);
   Serial.println(F(" micros"));
+ 
+  Serial.print(F("Sample_Err_No : "));
+  Serial.println(Sample_Err_No);
+  Serial.println(F(" Error Lines"));  
+  if(!(Sample_Err_No < 100)) Sample_Err_No = 99;  
+  for(uint32_t i = 0; i <= Sample_Err_No ; i++){
+    Serial.print(i);Serial.print(F(": "));
+    Serial.println(Sample_Err_Arr[i]);
+  }
+  
+  Serial.println(F(" "));   
   return ON;
 }
 //------------------------------------------------------------------------------

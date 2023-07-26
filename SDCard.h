@@ -6,7 +6,7 @@
 //https://cdn-learn.adafruit.com/assets/assets/000/066/497/original/adafruit_products_schem.png?1543358466'
 /*
   SD card test
-   
+    
   This example shows how use the utility libraries on which the'
   SD library is based in order to get info about your SD card.
   Very useful for testing a card when you're not sure whether its working or not.

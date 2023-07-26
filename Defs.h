@@ -9,7 +9,7 @@
 // Use 8 KiB for non-AVR boards.
 #define FIFO_SIZE_SECTORS 16
 #endif  // __AVR_ATmega328P__
-
+ 
 // Preallocate 1GiB file.
 const uint32_t PREALLOCATE_SIZE_MiB = 1024UL; // max size 1024*1024 = 1.048.576 kb
 

@@ -343,7 +343,7 @@ void displayValues(void){
   //testdrawchar();
   //return;
 
-
+ 
 #define LOG_START 1
 #define LOG_BIN_CREATE 2
 #define LOG_BIN_CREATE_POST 3

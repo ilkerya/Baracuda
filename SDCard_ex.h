@@ -476,7 +476,7 @@ bool serialReadLine(char* str, size_t size) {
 #define LOG_LOOP_IN_ACTION 4
 #define LOG_LOOP_ENDED_SUCCESS 5
 #define LOG_LOOP_ENDED_FAIL 8
-
+ 
 #define LOG_2CSV_CREATE 6
 #define LOG_2CSV_CREATE_POST 7
 

@@ -6,7 +6,7 @@ uint8_t Log_StatusTimer = 0;
 uint8_t exSD_Status = 0;
 
 bool Rate_Fast = OFF;
-
+ 
 //const size_t ADC_COUNT = 6;
 struct data_t {
  // uint16_t adc[ADC_COUNT];

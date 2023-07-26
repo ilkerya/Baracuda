@@ -1137,7 +1137,7 @@ void SD_Card_Log_NV_Menu(bool LogStatus){
     NVRam_Write(EE_LOGSTATUS,LogStatus);
     if(LogStatus == ON)MainMenu =  MENU1_SUB3;//MENU1
     else MainMenu =  MENU1_SUB4;
-    
+     
 }
 void EnterMenuKey(void){
   if (Display.OLED_Timer == 0) return;

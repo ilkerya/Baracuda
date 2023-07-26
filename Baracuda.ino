@@ -1,7 +1,7 @@
 /*
   Rev   Date         Description
   1.0   12.02.2020   Initial release
-*/
+*/ 
 //for setting date&time open arduino serial monitor and send the data stream
 //   Year,Month,Date,Hour,Minute;Second
 //   2022,08,25,16,40,15

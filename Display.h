@@ -294,13 +294,52 @@ void UpdateDispSpChar(uint8_t Index, uint8_t Line) {
 }
 
 void DisplayFast_Log(void){
- /*     Display_Line3  = "                     ";  
-      Display_Line4  = "FAST LOG MODE ACTIVE ";
-      Display_Line5  = "   DISPLAY FROZEN !  ";
-      Display_Line6  = "  TOUCH UP/DOWN KEYS ";   
-      Display_Line7  = "  5 TIMES TO STOP!   ";    
-*/
-  //    Display_Line3  = CopyFlashToRam(FASTLOG_LINE3);
+  switch(Log_Status){
+    //case LOG_OFF:               Display_Line2  = CopyFlashToRam(); break;
+    case LOG_START:             Display_Line2  = CopyFlashToRam(MESSAGE_LOG_START); break;
+    case LOG_BIN_CREATE:        Display_Line2  = CopyFlashToRam(MESSAGE_LOGBINCREATE); break; //
+    //case LOG_BIN_CREATE_POST:   Display_Line2  = CopyFlashToRam(); break;
+    case LOG_LOOP_IN_ACTION:    Display_Line2  = CopyFlashToRam(MESSAGE_LOOPINACTION); break;  //
+    case LOG_LOOP_ENDED_SUCCESS:Display_Line2  = CopyFlashToRam(MESSAGE_LOOPENDSCUCC); break;  //  
+    case LOG_LOOP_ENDED_FAIL:   Display_Line2  = CopyFlashToRam(MESSAGE_LOOPENDFAIL_); break;  //
+    case LOG_2CSV_CREATE:       Display_Line2  = CopyFlashToRam(MESSAGE_LOGT2CSVCRET); break;      //
+
+    case LOG_BIN_CREATE_FAIL:   Display_Line2  = CopyFlashToRam(MESSAGE_LOG_BIN_FAIL); break;  //
+    case LOG_RECORD_FAIL:       Display_Line2  = CopyFlashToRam(MESSAGE_LOG_REC_FAIL); break;  //  
+    case LOG_2CSV_FAIL:         Display_Line2  = CopyFlashToRam(MESSAGE_LOG_2CSV_FAIL); break;  //
+
+       
+   // case LOG_2CSV_CREATE_POST:  Display_Line2  = CopyFlashToRam(); break;  
+    default:break;      
+  }
+
+  char CSV_File[14];
+
+  for(int i = 0; i< 13; i++){
+    CSV_File[i] = binName[i];
+  }
+  
+  switch(Log_Status){
+    //case LOG_OFF:                break;
+    case LOG_START:              break;
+    case LOG_BIN_CREATE:        Display_Line3 =  String(binName); break; //
+    //case LOG_BIN_CREATE_POST:   Display_Line2  = CopyFlashToRam(); break;
+    case LOG_LOOP_IN_ACTION:    break;  //
+    case LOG_LOOP_ENDED_SUCCESS: break;  //  
+    case LOG_LOOP_ENDED_FAIL:   break;  //
+    case LOG_2CSV_CREATE:        Display_Line3 =  String(CSV_File) + ".csv"; break;      //
+
+    case LOG_BIN_CREATE_FAIL:   break;  //
+    case LOG_RECORD_FAIL:        break;  //  
+    case LOG_2CSV_FAIL:         break;  //
+
+       
+   // case LOG_2CSV_CREATE_POST:  Display_Line2  = CopyFlashToRam(); break;  
+    default:break;      
+  }
+
+   
+      //Display_Line3 =  String(binName);
       Display_Line4  = CopyFlashToRam(FASTLOG_LINE4);
       Display_Line5  = CopyFlashToRam(FASTLOG_LINE5);
       Display_Line6  = CopyFlashToRam(FASTLOG_LINE6);
@@ -333,36 +372,16 @@ void DisplayFast_Log(void){
           default: MainMenu =  MENU_NULL; 
           break;                    
         }
-      
-                                  
+        Display_Line8 = CopyFlashToRam(Disp_MENU_NULL_LOG); 
+                              
 }
 
-void displayValues(void){
-  UpdateDisplayBuffer();
-  if (Display.InitDelay == OFF)return;
-  //testdrawchar();
-  //return;
-
- 
-#define LOG_START 1
-#define LOG_BIN_CREATE 2
-#define LOG_BIN_CREATE_POST 3
-#define LOG_LOOP_IN_ACTION 4
-#define LOG_LOOP_ENDED_SUCCESS 5
-#define LOG_LOOP_ENDED_FAIL 8
-
-#define LOG_2CSV_CREATE 6
-#define LOG_2CSV_CREATE_POST 7
- 
-      if((Log_Status == LOG_START) || 
-         (Log_Status == LOG_BIN_CREATE) ||  
-         (Log_Status == LOG_BIN_CREATE_POST) ||
-         (Log_Status == LOG_LOOP_IN_ACTION) ||
-         (Log_Status == LOG_LOOP_ENDED_SUCCESS) ||
-         (Log_Status == LOG_2CSV_CREATE))
-          DisplayFast_Log();
-
-        
+void DisplayScreen(void){
+   if (Display.InitDelay == OFF)return;
+   if(Log_Status == LOG_OFF) UpdateDisplayBuffer(); //update buffer 2 display in normal mode!!
+   else DisplayFast_Log();
+  
+   
   display.clearDisplay();
   display.setTextSize(1);
 
@@ -370,8 +389,8 @@ void displayValues(void){
   display.print(Display_Line1);   //10
 
   display.setCursor(0, 8);
-  display.print(Display_Line2);   //10
-
+  display.print(Display_Line2);   //10    
+            
   display.setCursor(0, 16);
   display.print(Display_Line3);   //10
 

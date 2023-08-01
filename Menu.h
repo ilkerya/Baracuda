@@ -1224,7 +1224,7 @@ void EnterMenuKey(void){
         }
         ExLog_Start(); // only if not fast mode
         //SD_Card_Log_NV_Menu(SDCard.LogEnable);
-        NVRam_Write(EE_LOGSTATUS,SDCard.LogEnable);
+    //    NVRam_Write(EE_LOGSTATUS,SDCard.LogEnable);
         MainMenu =  MENU1_SUB3;//MENU1
       break;
     case MENU1_SUB2 : // SetResetLog(OFF);
@@ -1232,7 +1232,7 @@ void EnterMenuKey(void){
         
         SDCard.LogEnable = OFF;
         //SD_Card_Log_NV_Menu(SDCard.LogEnable);
-        NVRam_Write(EE_LOGSTATUS,SDCard.LogEnable);    
+    //    NVRam_Write(EE_LOGSTATUS,SDCard.LogEnable);    
         MainMenu =  MENU1_SUB4;//MENU1
       break;
     case MENU1_SUB3 :  

@@ -70,7 +70,9 @@ void JustAFunction(){
     #endif     
 */
 
-  if(Log_Status == LOG_LOOP_IN_ACTION)return;
+  //if((Log_Status == LOG_LOOP_IN_ACTION)  || (Log_Status == LOG_BIN_CREATE_POST))return;
+  if(Log_Status == LOG_LOOP_IN_ACTION)return; // only in this mode !!!
+  
 
   #ifdef STM32_F407 // 10msec int
     Loop.Task_10msec = ON; 
@@ -120,14 +122,31 @@ void JustAFunction(){
     if(Loop.IntTimer_100m >= TIME_100MSEC){
       Loop.IntTimer_100m = 0;
       Loop.Task_100msec = ON;
-      /*
+      
           #ifdef BATTERY_SCOOTER_EXISTS
-      Values.Battery_Current = analogRead(BAT_CURRENT);
+          float ADC_10BIT = 3.22265625; // mV
+          float ADC_12BIT = 0.8056640625; //mA
+
+   //       #define ADC_10BIT  3.22265625; // 3.3 Volt / 1024 0 10 bit
+  //        #define ADC_12BIT  0.8056640625; // 3.3 Volt / 4096 0 12 bit
+                   
+      Values.Bat_Current_Adc = analogRead(BAT_CURRENT);  
+      float NumberAdc = ADC_12BIT * (float)Values.Bat_Current_Adc;
+      Values.Battery_Current = (uint16_t)NumberAdc;       
+      
       __asm__("nop\n\t");
       __asm__("nop\n\t");
-      Values.Battery_Voltage = analogRead(BAT_VOLT);
-        #endif    
-        */
+      __asm__("nop\n\t");
+      __asm__("nop\n\t");
+      __asm__("nop\n\t");
+      __asm__("nop\n\t");
+           
+      Values.Bat_Voltage_Adc = analogRead(BAT_VOLT);  
+      NumberAdc = ADC_12BIT * (float)Values.Bat_Voltage_Adc;
+      Values.Battery_Voltage = (uint16_t)NumberAdc;
+      
+        #endif     
+        
     }
     if(Loop.IntTimer_250m >= TIME_250MSEC){
       Loop.IntTimer_250m = 0;
@@ -247,7 +266,7 @@ void Common_Loop(){
           Display.OLED_Init = OFF;
         }
         if (Display.OLED_Timer) {
-          displayValues();
+          if(Log_Status == LOG_OFF) DisplayScreen();
         }
         else {
           Display_SwitchOff();

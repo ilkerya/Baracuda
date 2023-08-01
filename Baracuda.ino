@@ -19,9 +19,10 @@
 // #define ARDUINO_MKRZERO // ARM Cortex M0
 //#define ARDUINO_DUE // ARM Cortex M3 -> GNU AVRDude
 #define STM32_F407 // STM32H743ZI MCU -> // https://www.st.com/resource/en/data_brief/nucleo-h743zi.pdf
+// https://docs.particle.io/reference/device-os/api/introduction/introduction/
 // #define CHIPKIT_MAX32 // MICROCHIP PIC32MX795F512L
 
-
+ 
  
 #ifdef ARDUINO_MEGA // 8 bit AVR
   #include <EEPROM.h>

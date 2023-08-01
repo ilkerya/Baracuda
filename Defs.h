@@ -95,7 +95,7 @@ C:\Program Files (x86)\Arduino\libraries
 //#define ENERGYMETER_EXISTS 
 //#define PROGRELAY_EXISTS 
 #define BATTERY_SCOOTER_EXISTS
-#define  SOLAR_PANEL_EXISTS
+//#define  SOLAR_PANEL_EXISTS
 //#define LIGHT_SENSOR_EXISTS  
 //#define BAR_PRES_SENSOR_EXISTS  
 #define ACCL_GYRO_SENSOR_EXISTS  
@@ -368,6 +368,34 @@ C:\Program Files (x86)\Arduino\libraries
 
 #define LETTER_NUMBER 0
 #define NUMBER_ONLY 1
+
+
+
+//  Log_Status Phases
+#define LOG_OFF 0
+#define LOG_START 1
+#define LOG_BIN_CREATE 2
+#define LOG_BIN_CREATE_POST 3
+#define LOG_LOOP_IN_ACTION 4
+#define LOG_LOOP_ENDED_SUCCESS 5
+#define LOG_LOOP_ENDED_FAIL 8
+
+#define LOG_BIN_CREATE_FAIL 16
+#define LOG_RECORD_FAIL     17
+#define LOG_2CSV_FAIL       18
+
+
+ 
+#define LOG_2CSV_CREATE 6
+#define LOG_2CSV_CREATE_POST 7
+
+// Timers 
+#define LOG_START_TIMER 3
+#define LOG_LOOP_ENDED_SUCCESS_TIMER 3
+#define LOG_2CSV_CREATE_POST_TIMER 3
+#define LOG_BIN_CREATE_POST_TIMER 3
+#define LOG_LOOP_ENDED_FAIL_TIMER 3
+
 /*
 #if defined (ARDUINO_MEGA)  & defined (ARDUINO_DUE) 
     #error Select Only One Platform-> ARDUINO_MEGA or ARDUINO_DUE

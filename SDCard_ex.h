@@ -490,27 +490,7 @@ bool serialReadLine(char* str, size_t size) {
   return true;
 }
 
-//  Log_Status Phases
-#define LOG_OFF 0
-#define LOG_START 1
-#define LOG_BIN_CREATE 2
-#define LOG_BIN_CREATE_POST 3
-#define LOG_LOOP_IN_ACTION 4
-#define LOG_LOOP_ENDED_SUCCESS 5
-#define LOG_LOOP_ENDED_FAIL 8
  
-#define LOG_2CSV_CREATE 6
-#define LOG_2CSV_CREATE_POST 7
-
-// Timers 
-#define LOG_START_TIMER 3
-#define LOG_LOOP_ENDED_SUCCESS_TIMER 3
-#define LOG_2CSV_CREATE_POST_TIMER 3
-#define LOG_BIN_CREATE_POST_TIMER 3
- 
-
-
-
 
 void ExFat_Logger_Loop(){
     if( Log_Status == LOG_START){  
@@ -518,6 +498,7 @@ void ExFat_Logger_Loop(){
       if(Log_StatusTimer > LOG_START_TIMER){
         Log_StatusTimer = 0;
         Log_Status = LOG_BIN_CREATE;
+        DisplayScreen();
       }
       /*
         char c = tolower(Serial.read());
@@ -547,9 +528,11 @@ void ExFat_Logger_Loop(){
     if( Log_Status == LOG_BIN_CREATE){  
       if(createBinFile()){
          Serial.println(binName);  
+         Log_Status = LOG_BIN_CREATE_POST;
       }
       else{    
-        Serial.println("File Failed");  Log_Status = LOG_LOOP_ENDED_FAIL; 
+        Serial.println("File Failed");  
+        Log_Status = LOG_BIN_CREATE_FAIL; 
       }
       /*
       Serial.println(binName);        
@@ -557,24 +540,26 @@ void ExFat_Logger_Loop(){
            Serial.println("preAllocate failed");        
       }
       */
-      Log_Status = LOG_BIN_CREATE_POST;
+      DisplayScreen(); 
     }
     if( Log_Status == LOG_BIN_CREATE_POST){  
       Log_StatusTimer++;
       if(Log_StatusTimer > LOG_BIN_CREATE_POST_TIMER){
         Log_StatusTimer = 0;
         Log_Status = LOG_LOOP_IN_ACTION;
+        DisplayScreen(); 
       }
     }   
-    if( Log_Status == LOG_LOOP_IN_ACTION){  
+    if( Log_Status == LOG_LOOP_IN_ACTION){ 
      //   noInterrupts(); //dont do also disables tim0 int which is millis 
         if(logData()){; // data logging loop, disables interrupt and stuck in the loop unless esc pressed
           Log_Status = LOG_LOOP_ENDED_SUCCESS; // let it convert to csv in main loop
         }
         else {
            Serial.println("Log Failed");
-           Log_Status = LOG_LOOP_ENDED_FAIL;
+           Log_Status = LOG_RECORD_FAIL;
         }
+        DisplayScreen(); 
         // MainMenu = MENU1_SUB2;// log stop menu
         // SDCard.LogEnable = OFF;
      //   interrupts();
@@ -584,30 +569,45 @@ void ExFat_Logger_Loop(){
       if(Log_StatusTimer > LOG_LOOP_ENDED_SUCCESS_TIMER){
         Log_StatusTimer = 0;
         Log_Status = LOG_2CSV_CREATE;
+        DisplayScreen();
       }
     }  
     
     if( Log_Status == LOG_2CSV_CREATE){
        if (createCsvFile()) {
-          binaryToCsv();      
+          binaryToCsv(); 
+          Log_Status = LOG_2CSV_CREATE_POST;         
        }
        else{
             Serial.println(" CSV file Create Error !");
+            Log_Status == LOG_2CSV_FAIL;
        } 
-       Log_Status = LOG_2CSV_CREATE_POST;      
+       DisplayScreen();
     }
     if( Log_Status == LOG_2CSV_CREATE_POST){  
       Log_StatusTimer++;
       if(Log_StatusTimer > LOG_2CSV_CREATE_POST_TIMER){
         Log_StatusTimer = 0;
-        Log_Status = LOG_LOOP_ENDED_FAIL;
+        DisplayScreen();
+         ExLog_End();
       }
-    }  
+    }
+
     
-     if( Log_Status == LOG_LOOP_ENDED_FAIL){
-      ExLog_End();  
+    if(( Log_Status == LOG_BIN_CREATE_FAIL)||( Log_Status == LOG_RECORD_FAIL)||( Log_Status == LOG_2CSV_FAIL) ){
+      DisplayScreen();  
       Rate_Fast = OFF;
-     }
+      Log_Status = LOG_LOOP_ENDED_FAIL;
+    }
+
+    if( Log_Status == LOG_LOOP_ENDED_FAIL){
+      Log_StatusTimer++;
+      if(Log_StatusTimer > LOG_LOOP_ENDED_FAIL_TIMER){
+        Log_StatusTimer = 0;
+        DisplayScreen();
+        ExLog_End();
+      }
+    } 
 }
 void exSdCard_Init(){
   FsDateTime::setCallback(dateTime);

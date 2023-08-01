@@ -5,8 +5,6 @@ void SD_CardLogTask(){
   
 }
 
-
-
 // Avoid IDE problems by defining struct in septate .h file.
 // Pad record so size is a power of two for best write performance.
 #ifndef ExFatLogger_h
@@ -19,9 +17,9 @@ void logRecord(data_t* data, uint16_t overrun) {
     overrun++;
     //SensorAcccel_GyroRead();
   }
-  SensorAcccel_GyroRead();
-         data->Adc_Arr[0] = analogRead(BAT_CURRENT); // let adc to rest in between measurements
-
+          data->Adc_Arr[0] = analogRead(BAT_CURRENT); // let adc to rest in between measurements 
+          
+         SensorAcccel_GyroRead();
          data->Sensor_Arr[0] = Accelometer.x;
          data->Sensor_Arr[1] = Accelometer.y;
          data->Sensor_Arr[2] = Accelometer.z;
@@ -30,7 +28,7 @@ void logRecord(data_t* data, uint16_t overrun) {
          data->Sensor_Arr[5] = Gyro.z;
          data->Sensor_Arr[4] = Gyro.y;
          data->Sensor_Arr[5] = Gyro.z;
-
+     
          data->Adc_Arr[1] = analogRead(BAT_VOLT) ;
 
 }
@@ -51,10 +49,12 @@ void printRecord(Print* pr, data_t* data) {
     pr->print(Str_DateLog_Init);
     pr->print(F(", "));
     pr->print(Str_TimeLog_Init);  
+    pr->print(F(",Total,Samples:,"));   
+    pr->print(Sample_No);
+ 
     pr->print(F(",Missed,Samples:,"));   
-    pr->println(Sample_Err_No+1);
-
-    
+    pr->println(Sample_Err_No);
+ 
     pr->print(F("End  Log,"));    
     pr->print(Str_Date);
     pr->print(F(", "));
@@ -73,7 +73,7 @@ void printRecord(Print* pr, data_t* data) {
     */
     pr->print(F(",Acc x, Acc y, Acc z, Gyr x, Gyr y, Gyr z"));
     pr->print(F(",Bat Cur.,Bat Volt"));
-    pr->print(F(",ErrLines"));
+    pr->print(F(",Missing Lines"));
     pr->println();
     LogNumber = 0;
     return;
@@ -107,7 +107,7 @@ void printRecord(Print* pr, data_t* data) {
     pr->write(',');pr->print(data->Adc_Arr[1]);
 
     
-    if((Sample_Err_No < 100) &&( Sample_Err_No >= i)){
+    if((Sample_Err_No < 100) &&( Sample_Err_No > i)){
       pr->write(',');pr->print(Sample_Err_Arr[i]); 
       i++; 
     }

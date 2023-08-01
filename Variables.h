@@ -1,6 +1,7 @@
 // https://en.cppreference.com/w/cpp/types/integer
 
 char binName[] = "Voi_V5_data00.bin";
+//char CSV_File[] = "Voi_V5_data00.bin";
 uint8_t Log_Status = 0;
 uint8_t Log_StatusTimer = 0;
 uint8_t exSD_Status = 0;
@@ -100,6 +101,7 @@ static const unsigned char PROGMEM logo16_glcd_bmp[] =
   B01110000, B01110000,
   B00000000, B00110000 };
 //char Disp_MENU1[] =    {'L','O','G',' ','S','T','A','R','T',' ','&',' ','S','T','O','P',' ','M','E','N','U','\0'};
+static const char Disp_MENU_NULL_LOG[]PROGMEM = "                  ESC";
 static const char Disp_MENU_NULL[]  PROGMEM = "ENTER             ESC";
 static const char Disp_MENU_ERROR[] PROGMEM = " KEY ERROR !         ";
 static const char Disp_MENU1[] PROGMEM =      "LOG START & STOP MENU";
@@ -230,10 +232,10 @@ static const char  CALIBRATING[] PROGMEM  = "Calibrating";
 static const char  ICERROR[]   PROGMEM    = " IC Error";
 
 static const char  FASTLOG_LINE3[] PROGMEM = "                     "; 
-static const char  FASTLOG_LINE4[] PROGMEM = "   LOG MODE ACTIVE   ";
+static const char  FASTLOG_LINE4[] PROGMEM = "                     ";
 static const char  FASTLOG_LINE5[] PROGMEM = "   DISPLAY FROZEN !  ";
 static const char  FASTLOG_LINE6[] PROGMEM = "   ESC KEY TO STOP   ";
-static const char  FASTLOG_LINE7[] PROGMEM = "   5 TIMES TO STOP!  ";  
+//static const char  FASTLOG_LINE7[] PROGMEM = "   5 TIMES TO STOP!  ";  
 
 static const char  EX_LOG_MESS0[] PROGMEM = "                     "; 
 static const char  EX_LOG_MESS1[] PROGMEM = " SD Card Initilised  ";
@@ -245,9 +247,20 @@ static const char  EX_LOG_MESS6[] PROGMEM = " Csv File Failed !!  ";
 static const char  EX_LOG_MESS7[] PROGMEM = "  ??????????????     ";
 static const char  EX_LOG_MESS8[] PROGMEM = "   5 TIMES TO STOP!  ";  
 
+static const char  MESSAGE_LOG_START[]    PROGMEM = " Log Started! "; 
+static const char  MESSAGE_LOGBINCREATE[] PROGMEM = "Bin File Done!"; 
+static const char  MESSAGE_LOOPINACTION[] PROGMEM = "On Going Log! ";
+static const char  MESSAGE_LOOPENDSCUCC[] PROGMEM = "Log Completed ";
+static const char  MESSAGE_LOOPENDFAIL_[] PROGMEM = "SessionFailed!";
+static const char  MESSAGE_LOGT2CSVCRET[] PROGMEM = "Convert ->CSV!"; 
+
+static const char  MESSAGE_LOG_BIN_FAIL[] PROGMEM = "Bin File Fail!";
+static const char  MESSAGE_LOG_REC_FAIL[] PROGMEM = "Log Rec. Fail!";
+static const char  MESSAGE_LOG_2CSV_FAIL[]PROGMEM = "CSV File Fail!"; 
 
 
-      
+
+
 static const char  Repository[] PROGMEM = "github.com/ilkerya/AlphaCent";
 static const char  Terminal_1[] PROGMEM = "For Adjusting date&time send as below format";
 static const char  Terminal_2[] PROGMEM = "Year,Month,Date,Hour,Minute;Second";
@@ -475,6 +488,8 @@ struct
   uint16_t Luminosity;  
   uint16_t Battery_Current;  
   uint16_t Battery_Voltage; 
+  uint16_t Bat_Current_Adc;  
+  uint16_t Bat_Voltage_Adc;   
   float Solar_Current;  
   uint16_t Solar_Voltage; 
   

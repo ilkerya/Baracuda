@@ -14,8 +14,6 @@ char* CopyFlashToRam(const char* p){
 }
 void UpdateDisplayBuffer(void){  
 
-
- 
     Display_Line1 = Str_Date + "   ";
     Display_Line1 +=  Str_Time;
    // Display_Line1 =  String(Key.Adc); 
@@ -394,8 +392,14 @@ void UpdateProperLine(uint8_t Index, uint8_t Line){
         //str += Display_LineTry;
 
              #ifdef BATTERY_SCOOTER_EXISTS 
-                str += "B_C." + String(Values.Battery_Current) + " B_V "+ String(Values.Battery_Voltage);
+                str += "Cur. " + String(Values.Bat_Current_Adc) + "Adc " + String(Values.Battery_Current)+ "mA"; // 5 + 4 + 4 + 4 + 2 = 19
              #endif  
+             
+          
+
+             
+                
+
                 
         
               #ifdef VOLTAGE_MEASURE_EXISTS
@@ -444,6 +448,10 @@ void UpdateProperLine(uint8_t Index, uint8_t Line){
              else   //str += CALIBRATING;//str += "Calibrating!";  // 3/4/2  
                       str += CopyFlashToRam(CALIBRATING);               
             #endif 
+      #ifdef BATTERY_SCOOTER_EXISTS 
+                str += "Volt. " + String(Values.Bat_Voltage_Adc) + "Adc " + String(Values.Battery_Voltage)+ "mV"; // 6 + 4 + 4 + 2 + 1 = 17
+             #endif    
+                        
         #ifdef  LIDAR_EXISTS
               str += F("Lidar ");
               str += String(Values.Lidar,5);
@@ -453,6 +461,8 @@ void UpdateProperLine(uint8_t Index, uint8_t Line){
              #ifdef SOLAR_PANEL_EXISTS 
                 str += "Sol " + String(Values.Solar_Current) + "mA  "+ String(Values.Solar_Voltage)+ "V";
              #endif  
+
+             
                                
      break; 
      case DISPROLL_LINE7:

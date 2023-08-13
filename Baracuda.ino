@@ -1,19 +1,18 @@
 /*
   Rev   Date         Description
-  1.0   12.02.2020   Initial release
+  1.0   12.04.2023   Initial release
 */ 
 //for setting date&time open arduino serial monitor and send the data stream
 //   Year,Month,Date,Hour,Minute;Second
 //   2022,08,25,16,40,15
 //  2023,07,24,23,08,55 TIME DATE COMMAND
-// DEVIDf567   // DEV ID COMMAND DEVIDXXXX     Lxxxx_77.CSV  xxxx = 0000 - FFFF
-// FILEQUE01 // FILE NO COMMAND  FILEQUEXX      LAB75_xx.CSV  xx = 00 - 99
+// DEVIDf567   // DEV ID COMMAND DEVIDXXXX     XXXX  = 0000 - FFFF
+// FILEQUE01 // FILE NO COMMAND  FILEQUEXX      Voi_V5_dataxx.CSV  xx = 00 - 99
 // https://www.browserling.com/tools/random-hex
 // 115200 baud Both NL & CR
 // put leading zero for numbers less than 10
 //*********************************************************************
 // C:\Users\ilker\Documents\Atmel Studio\7.0\trial\trial
-// C:\Users\ilker\OneDrive\Belgeler\Arduino\Proximab
 
 //#define ARDUINO_MEGA // 8 bit AVR Compiler -> GNU AVRDude 
 // #define ARDUINO_MKRZERO // ARM Cortex M0

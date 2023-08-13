@@ -71,8 +71,8 @@ void printRecord(Print* pr, data_t* data) {
       pr->print(i);
     }
     */
-    pr->print(F(",Acc x, Acc y, Acc z, Gyr x, Gyr y, Gyr z"));
-    pr->print(F(",Bat Cur.,Bat Volt"));
+    pr->print(F(",Acc_x(m/s2), Acc_y, Acc_z, Gyr_x(dps), Gyr_y, Gyr_z"));
+    pr->print(F(",Bat Cur(Adc),Bat Volt(Adc)"));
     pr->print(F(",Missing Lines"));
     pr->println();
     LogNumber = 0;

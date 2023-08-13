@@ -105,6 +105,10 @@ C:\Program Files (x86)\Arduino\libraries
 //#define LEM_CURRENT_EXISTS
 //#define VOLTAGE_MEASURE_EXISTS
 
+  #define ANALOG_RES_12BIT
+  //#define ANALOG_RES_10BIT
+
+
 //#define KEY_DIGITAL
 #define KEY_ANALOG
 #define SPI_SPEED 100000     //SPI Speed   max for MEGA 8 MHz
@@ -201,8 +205,8 @@ C:\Program Files (x86)\Arduino\libraries
   #define SOL_CURRENT     A3
   #define BAT_VOLT        A2
   #define BAT_CURRENT     A1 
-  uint16_t KEY_ANALOG_IN = A0;  
-
+  //uint16_t KEY_ANALOG_IN = A0;  
+  #define  KEY_ANALOG_IN   A0 
 
 
   

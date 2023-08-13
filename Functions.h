@@ -124,14 +124,19 @@ void JustAFunction(){
       Loop.Task_100msec = ON;
       
           #ifdef BATTERY_SCOOTER_EXISTS
-          float ADC_10BIT = 3.22265625; // mV
-          float ADC_12BIT = 0.8056640625; //mA
 
+          
+      #ifdef ANALOG_RES_12BIT
+          float ADC_BIT = 0.8056640625; //mA
+      #endif            
+      #ifdef ANALOG_RES_10BIT
+            float ADC_BIT = 3.22265625; // mV
+      #endif             
    //       #define ADC_10BIT  3.22265625; // 3.3 Volt / 1024 0 10 bit
   //        #define ADC_12BIT  0.8056640625; // 3.3 Volt / 4096 0 12 bit
                    
       Values.Bat_Current_Adc = analogRead(BAT_CURRENT);  
-      float NumberAdc = ADC_12BIT * (float)Values.Bat_Current_Adc;
+      float NumberAdc = ADC_BIT * (float)Values.Bat_Current_Adc;
       Values.Battery_Current = (uint16_t)NumberAdc;       
       
       __asm__("nop\n\t");
@@ -142,7 +147,7 @@ void JustAFunction(){
       __asm__("nop\n\t");
            
       Values.Bat_Voltage_Adc = analogRead(BAT_VOLT);  
-      NumberAdc = ADC_12BIT * (float)Values.Bat_Voltage_Adc;
+      NumberAdc = ADC_BIT * (float)Values.Bat_Voltage_Adc;
       Values.Battery_Voltage = (uint16_t)NumberAdc;
       
         #endif     
@@ -426,8 +431,17 @@ void IO_Settings() {
   pinMode(DEBUG_OUT_3, OUTPUT);   
 
   digitalWrite(DEBUG_OUT_2,LOW);
-  
+ 
 #endif 
+
+  #ifdef ANALOG_RES_12BIT
+    analogReadResolution(12);
+  #endif 
+  #ifdef ANALOG_RES_10BIT
+    analogReadResolution(10);
+  #endif 
+
+
 
   #ifdef ARDUINO_DUE
     // default i2c pin is for Mega not Due so set pins to input

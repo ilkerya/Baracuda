@@ -548,6 +548,7 @@ void Key_Functions_Analog(uint32_t Adc) {
 
 #if defined (STM32_F407)
 
+  #ifdef ANALOG_RES_120BIT
     #define KEY_DOWN_ADC_HIGH 767 //757
     #define KEY_DOWN_ADC_LOW 747   
     #define KEY_LEFT_ADC_HIGH 612  //602
@@ -558,6 +559,23 @@ void Key_Functions_Analog(uint32_t Adc) {
     #define KEY_UP_ADC_LOW 445   
     #define KEY_RIGHT_ADC_HIGH 155 //145
     #define KEY_RIGHT_ADC_LOW 135   
+  #endif 
+
+  #ifdef ANALOG_RES_12BIT
+    #define KEY_DOWN_ADC_HIGH 3068 //757
+    #define KEY_DOWN_ADC_LOW  2900   
+    #define KEY_LEFT_ADC_HIGH 2488  //2080 
+    #define KEY_LEFT_ADC_LOW 2348
+    #define KEY_RELEASED_ADC_HIGH 2100 //2080 
+    #define KEY_RELEASED_ADC_LOW 2024   
+    #define KEY_UP_ADC_HIGH 1900 //455
+    #define KEY_UP_ADC_LOW 1790   
+    #define KEY_RIGHT_ADC_HIGH 650 //145
+    #define KEY_RIGHT_ADC_LOW 540   
+  #endif 
+
+
+    
 #endif      
     Key.Down_Press = OFF;
     Key.Right_Press = OFF;

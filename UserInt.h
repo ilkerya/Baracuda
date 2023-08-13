@@ -212,6 +212,8 @@ void PrintDisplayBuffer(void){
         Serial.println(); 
 
     */    
+   // Serial.print(F("Key.Adc : ")); Serial.println(Key.Adc);  // 11 1 8  
+    
    #ifdef ARDUINO_MEGA         
     char buffer[75];
     for (int i = 0; i < 5; i++) {

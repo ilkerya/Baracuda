@@ -459,7 +459,7 @@ void SensorLight_Read(void) {
 #endif
 #ifdef ACCL_GYRO_SENSOR_EXISTS
 void SensorACccel_GyroInit(void) {
- // tcaselect(CHANNEL_ACCEL_GYRO_0);
+  tcaselect(CHANNEL_ACCEL_GYRO_0);
  // tcaselect(CHANNEL_ACCEL_GYRO_1);
   if (!lsm.begin()) {
     Serial.println(F("Failed to initialize IMU!"));
@@ -485,9 +485,9 @@ void SensorACccel_GyroInit(void) {
   */
 
 
-  lsm.setupAccel(lsm.LSM9DS1_ACCELRANGE_2G);
+ //lsm.setupAccel(lsm.LSM9DS1_ACCELRANGE_2G);
  // lsm.setupAccel(lsm.LSM9DS1_ACCELRANGE_4G);
-  //lsm.setupAccel(lsm.LSM9DS1_ACCELRANGE_8G);
+  lsm.setupAccel(lsm.LSM9DS1_ACCELRANGE_8G);
   //lsm.setupAccel(lsm.LSM9DS1_ACCELRANGE_16G);
 
   // 2.) Set the magnetometer sensitivity

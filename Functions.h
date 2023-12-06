@@ -123,21 +123,25 @@ void JustAFunction(){
       Loop.IntTimer_100m = 0;
       Loop.Task_100msec = ON;
       
-          #ifdef BATTERY_SCOOTER_EXISTS
-
-          
+       #ifdef BATTERY_SCOOTER_EXISTS
+     
       #ifdef ANALOG_RES_12BIT
           float ADC_BIT = 0.8056640625; //mA
+          #define  ADC_OFFSET 78
       #endif            
       #ifdef ANALOG_RES_10BIT
             float ADC_BIT = 3.22265625; // mV
+            #define  ADC_OFFSET 19
       #endif             
-   //       #define ADC_10BIT  3.22265625; // 3.3 Volt / 1024 0 10 bit
-  //        #define ADC_12BIT  0.8056640625; // 3.3 Volt / 4096 0 12 bit
-                   
+
+      #define  CURRENT_OFFSET 89
+                
       Values.Bat_Current_Adc = analogRead(BAT_CURRENT);  
-      float NumberAdc = ADC_BIT * (float)Values.Bat_Current_Adc;
-      Values.Battery_Current = (uint16_t)NumberAdc;       
+      Values.Battery_Current_IO_Volt = (float)(ADC_BIT * Values.Bat_Current_Adc + ADC_OFFSET);
+      
+      Values.Battery_Current_Eq_Volt = 2500 - Values.Battery_Current_IO_Volt + CURRENT_OFFSET; 
+      Values.Battery_Current_LEM = (15/2500)*Values.Battery_Current_Eq_Volt;
+         
       
       __asm__("nop\n\t");
       __asm__("nop\n\t");
@@ -145,12 +149,17 @@ void JustAFunction(){
       __asm__("nop\n\t");
       __asm__("nop\n\t");
       __asm__("nop\n\t");
+
+      uint32_t  RES_DIVIDER_HIGH = 61600; 
+      uint32_t  RES_DIVIDER_LOW  = 3300;   
+      #define   VOLTAGE_OFFSET 1
            
       Values.Bat_Voltage_Adc = analogRead(BAT_VOLT);  
-      NumberAdc = ADC_BIT * (float)Values.Bat_Voltage_Adc;
-      Values.Battery_Voltage = (uint16_t)NumberAdc;
+      Values.Battery_Voltage_IO_Volt = (float)(ADC_BIT * Values.Bat_Voltage_Adc + ADC_OFFSET);
+      Values.Battery_Voltage_Real =  ((RES_DIVIDER_HIGH+ RES_DIVIDER_LOW)/ RES_DIVIDER_LOW)*Values.Battery_Voltage_IO_Volt + VOLTAGE_OFFSET;
       
-        #endif     
+
+      #endif     // end of  #ifdef BATTERY_SCOOTER_EXISTS
         
     }
     if(Loop.IntTimer_250m >= TIME_250MSEC){
@@ -578,7 +587,7 @@ void MicroInit() {
   */
 
 
-
+ 
   #if defined (ARDUINO_MEGA)  | defined (ARDUINO_DUE) 
  // UniqueID8dump(Serial);
   // Serial.print("UniqueID: ");

@@ -1,11 +1,11 @@
 /*
   Rev   Date         Description
   1.0   12.04.2023   Initial release
-*/ 
+*/
 //for setting date&time open arduino serial monitor and send the data stream
 //   Year,Month,Date,Hour,Minute;Second
 //   2022,08,25,16,40,15
-//  2023,07,24,23,08,55 TIME DATE COMMAND
+//  2023,08,14,11,44,00 TIME DATE COMMAND
 // DEVIDf567   // DEV ID COMMAND DEVIDXXXX     XXXX  = 0000 - FFFF
 // FILEQUE01 // FILE NO COMMAND  FILEQUEXX      Voi_V5_dataxx.CSV  xx = 00 - 99
 // https://www.browserling.com/tools/random-hex
@@ -14,29 +14,29 @@
 //*********************************************************************
 // C:\Users\ilker\Documents\Atmel Studio\7.0\trial\trial
 
-//#define ARDUINO_MEGA // 8 bit AVR Compiler -> GNU AVRDude 
+//#define ARDUINO_MEGA // 8 bit AVR Compiler -> GNU AVRDude
 // #define ARDUINO_MKRZERO // ARM Cortex M0
 //#define ARDUINO_DUE // ARM Cortex M3 -> GNU AVRDude
 #define STM32_F407 // STM32H743ZI MCU -> // https://www.st.com/resource/en/data_brief/nucleo-h743zi.pdf
 // https://docs.particle.io/reference/device-os/api/introduction/introduction/
 // #define CHIPKIT_MAX32 // MICROCHIP PIC32MX795F512L
 
- 
- 
+
+
 #ifdef ARDUINO_MEGA // 8 bit AVR
-  #include <EEPROM.h>
-  #include <avr/wdt.h>
-  #include <ArduinoUniqueID.h>
+#include <EEPROM.h>
+#include <avr/wdt.h>
+#include <ArduinoUniqueID.h>
 #endif
 #ifdef ARDUINO_DUE // ARM CortexM3 32 bit
-  #include <malloc.h>
-  #include <DueFlashStorage.h>
-  DueFlashStorage dueFlashStorage;
-  #include <ArduinoUniqueID.h>
+#include <malloc.h>
+#include <DueFlashStorage.h>
+DueFlashStorage dueFlashStorage;
+#include <ArduinoUniqueID.h>
 #endif
 #ifdef STM32_F407 // ARM CortexM3 32 bit STM32H743ZIT6 NUCLEO-144 H743ZI2
-  #include "STM32TimerInterrupt.h"
-  #include "STM32_ISR_Timer.h"
+#include "STM32TimerInterrupt.h"
+#include "STM32_ISR_Timer.h"
 #endif
 //#define OLED_128X128
 #define OLED_128X64
@@ -49,7 +49,7 @@
 #ifdef OLED_128X128
 #include <Adafruit_SSD1327.h>
 #endif
- //#define SPI_SPEED 40000000 
+//#define SPI_SPEED 40000000
 
 //#include <SD.h>
 #include <Wire.h>
@@ -60,30 +60,30 @@
 
 #define ARM_MATH_CM0PLUS
 
-#ifdef STM32_F407 
+#ifdef STM32_F407
 
-  // Init STM32 timer TIM1
-  STM32Timer ITimer(TIM2);
-  #include <EEPROM.h>
-  int STM32_addr = 0;
-  // Init STM32_ISR_Timer
-  // Each STM32_ISR_Timer can service 16 different ISR-based timers
-  STM32_ISR_Timer ISR_Timer;
+// Init STM32 timer TIM1
+STM32Timer ITimer(TIM2);
+#include <EEPROM.h>
+int STM32_addr = 0;
+// Init STM32_ISR_Timer
+// Each STM32_ISR_Timer can service 16 different ISR-based timers
+STM32_ISR_Timer ISR_Timer;
 
-  #define TIMER_INTERVAL_1_MS         1L
-  #define TIMER_INTERVAL_10_MS         10L  
-  #define TIMER_INTERVAL_20_MS         20L  
-  #define TIMER_INTERVAL_100MS         100L
-  
-  #define HW_TIMER_INTERVAL_MS      50 //5msec 50*100= 5000
-  #define TIMER_INTERVAL_0_5S           500L
-  #define TIMER_INTERVAL_1S             1000L
-  #define TIMER_INTERVAL_1_5S           1500L
-  
-  void TimerHandler()
-  {
-    ISR_Timer.run();
-  }
+#define TIMER_INTERVAL_1_MS         1L
+#define TIMER_INTERVAL_10_MS         10L
+#define TIMER_INTERVAL_20_MS         20L
+#define TIMER_INTERVAL_100MS         100L
+
+#define HW_TIMER_INTERVAL_MS      50 //5msec 50*100= 5000
+#define TIMER_INTERVAL_0_5S           500L
+#define TIMER_INTERVAL_1S             1000L
+#define TIMER_INTERVAL_1_5S           1500L
+
+void TimerHandler()
+{
+  ISR_Timer.run();
+}
 #endif
 
 #ifdef ARDUINO_DUE // ARM 32 bit

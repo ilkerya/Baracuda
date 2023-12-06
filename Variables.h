@@ -187,8 +187,8 @@ static const char Disp_MENU2_SUB[] PROGMEM = "Enter -> ";  //9
   static const char Disp_MENU2_SUB10[] PROGMEM =" 2 Sec      "; //12
   static const char Disp_MENU2_SUB11[] PROGMEM =" 5 Sec      "; //12
   static const char Disp_MENU2_SUB12[] PROGMEM =" 10 Sec     "; //12   
-  static const char Disp_MENU2_SUB13[] PROGMEM =" 20 Sec     "; //12
-  static const char Disp_MENU2_SUB14[] PROGMEM =" 60 Sec     "; //12    
+// static const char Disp_MENU2_SUB13[] PROGMEM =" 20 Sec     "; //12
+ // static const char Disp_MENU2_SUB14[] PROGMEM =" 60 Sec     "; //12    
   
 #endif
 #ifdef STM32_F407 // 10msec
@@ -486,10 +486,16 @@ struct
   uint16_t WindMPH;    // 31
   uint16_t WindTemp;   // 35
   uint16_t Luminosity;  
-  uint16_t Battery_Current;  
-  uint16_t Battery_Voltage; 
+
+  uint16_t Bat_Voltage_Adc; 
+  float Battery_Voltage_IO_Volt;
+  float Battery_Voltage_Real;
+   
   uint16_t Bat_Current_Adc;  
-  uint16_t Bat_Voltage_Adc;   
+  float Battery_Current_IO_Volt;   
+  float Battery_Current_Eq_Volt;
+  float Battery_Current_LEM;
+  
   float Solar_Current;  
   uint16_t Solar_Voltage; 
   

@@ -270,7 +270,7 @@ void UpdateProperLine(uint8_t Index, uint8_t Line){
       break; 
         case DISPROLL_LINE1:  
              #ifdef BATTERY_SCOOTER_EXISTS 
-                str += "B_C." + String(Values.Battery_Current) + " B_V "+ String(Values.Battery_Voltage);
+                str += "B_C." + String((uint16_t)Values.Battery_Current_LEM) + " B_V "+ String((uint16_t)Values.Battery_Voltage_Real);
              #endif  
                 
               #ifdef VOLTAGE_MEASURE_EXISTS
@@ -394,15 +394,10 @@ void UpdateProperLine(uint8_t Index, uint8_t Line){
         //str += Display_LineTry;
 
              #ifdef BATTERY_SCOOTER_EXISTS 
-                str += "Cur. " + String(Values.Bat_Current_Adc) + "Adc " + String(Values.Battery_Current)+ "mA"; // 5 + 4 + 4 + 4 + 2 = 19
+                str += "C" + String(Values.Bat_Current_Adc) + "/" + String((uint16_t)Values.Battery_Current_IO_Volt)+ "/"; // 5 + 4 + 4 + 4 + 2 = 19
+                str +=  String((uint16_t)Values.Battery_Current_Eq_Volt) + "/" + String((uint16_t)Values.Battery_Current_LEM);
              #endif  
-             
-          
-
-             
-                
-
-                
+                          
         
               #ifdef VOLTAGE_MEASURE_EXISTS
                // str += " " + String(Mains_Volt) + "V ";  
@@ -451,8 +446,10 @@ void UpdateProperLine(uint8_t Index, uint8_t Line){
                       str += CopyFlashToRam(CALIBRATING);               
             #endif 
       #ifdef BATTERY_SCOOTER_EXISTS 
-                str += "Volt. " + String(Values.Bat_Voltage_Adc) + "Adc " + String(Values.Battery_Voltage)+ "mV"; // 6 + 4 + 4 + 2 + 1 = 17
+                str += "V" + String(Values.Bat_Voltage_Adc) + "/" + String((uint16_t)Values.Battery_Voltage_IO_Volt)+ "/"; // 6 + 4 + 4 + 2 + 1 = 17
+                str += String((uint16_t)Values.Battery_Voltage_Real);
              #endif    
+                
                         
         #ifdef  LIDAR_EXISTS
               str += F("Lidar ");

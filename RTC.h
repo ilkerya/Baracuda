@@ -1,4 +1,14 @@
- 
+
+/*
+https://github.com/stm32duino/Arduino_Core_STM32/#readme
+RTC_ADON_DATALOGGER
+works with 2.7.1
+works with 2.7.0
+Works with 2.6.0
+Works with 2.4.0
+Works with 2.2.0
+Change the core version from boards manager 
+ */
 #define RTC_ADON_DATALOGGER
 //#define RTC_STM332_NUCLEO44
  
@@ -11,8 +21,6 @@
    RTC_PCF8523 rtc; // I2c Addres 0x68
 #endif
 
-
- 
 #ifdef RTC_STM332_NUCLEO44
   #include <STM32RTC.h>
   STM32RTC& rtc = STM32RTC::getInstance();
@@ -23,6 +31,7 @@ void SetCompile(void);
 void  RTC_Read_2Buffer(void){
   #ifdef RTC_STM332_NUCLEO44
       rtc.setHours(DateTimeBuf.Hour);
+      
       rtc.setMinutes(DateTimeBuf.Minute);
       rtc.setSeconds(DateTimeBuf.Second);
    //   rtc.setWeekDay(DateTimeBuf.weekDay);

@@ -1,0 +1,31 @@
+Compiler & Libb
+
+
+In file included from C:\Users\ilker\OneDrive\Belgeler\Arduino\Baracuda/rtc.h:17,
+                 from C:\Users\ilker\AppData\Local\Arduino15\packages\STM32\hardware\stm32\1.9.0\cores\arduino/board.h:16,
+                 from C:\Users\ilker\AppData\Local\Arduino15\packages\STM32\hardware\stm32\1.9.0\cores\arduino/wiring.h:41,
+                 from C:\Users\ilker\AppData\Local\Arduino15\packages\STM32\hardware\stm32\1.9.0\cores\arduino/Arduino.h:36,
+                 from sketch\Baracuda.ino.cpp:1:
+C:\Users\ilker\OneDrive\Belgeler\Arduino\libraries\STM32duino_RTC\src/STM32RTC.h:42:4: error: #error "This library is not compatible with core version used. Please update the core."
+   42 |   #error "This library is not compatible with core version used. Please update the core."
+      |    ^~~~~
+Multiple libraries were found for "Adafruit_Sensor.h"
+ Used: C:\Users\ilker\OneDrive\Belgeler\Arduino\libraries\Adafruit_Unified_Sensor
+ Not used: C:\Users\ilker\OneDrive\Belgeler\Arduino\libraries\arduino_943581
+Multiple libraries were found for "STM32RTC.h"
+ Used: C:\Users\ilker\OneDrive\Belgeler\Arduino\libraries\STM32duino_RTC
+ Not used: C:\Users\ilker\OneDrive\Belgeler\Arduino\libraries\arduino_71406
+exit status 1
+Error compiling for board Nucleo-144.
+
+
+Arduino: 1.8.13 (Windows 10), Board: "Nucleo-144, Nucleo H743ZI2, Mass Storage, Enabled (generic 'Serial'), None, Low/Full Speed, Smallest (-Os default), Newlib Nano (default)"
+
+
+
+This report would have more information with
+"Show verbose output during compilation"
+option enabled in File -> Preferences.
+
+
+
